@@ -1,0 +1,3 @@
+get spring and vue running locally
+create git repository and make initial commit
+create a .jar file and deploy on heroku
