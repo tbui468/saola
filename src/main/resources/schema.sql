@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS Student (
+    id IDENTITY PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+/*
+CREATE TABLE IF NOT EXISTS Instructor (
+    id IDENTITY PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Lesson (
+    id IDENTITY PRIMARY KEY,
+    instructor BIGINT,
+    student BIGINT
+);
+
+ALTER TABLE Lesson
+    ADD FOREIGN KEY (instructor) REFERENCES Instructor(id);
+
+ALTER TABLE Lesson
+    ADD FOREIGN KEY (student) REFERENCES Student(id);*/

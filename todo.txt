@@ -1,3 +1,79 @@
-get spring and vue running locally
-create git repository and make initial commit
-create a .jar file and deploy on heroku
+Backend
+    save on git before doing this since we are changing a shit ton of stuff
+    Use JWT for authorization (and username + password for authentication)
+        client should post to '/auth/login'
+        if username + password match Spring database, return a JWT
+        Vuejs needs to cache the token (Vuex???) and put it in the header with each request to paths that require authorization
+        ....
+
+        do the backend first, then get the vuejs side working later.  Should be able to do this
+
+    Finish LessonController and test all Student/Instructor/Lesson rest endpoints
+
+    Have each Student hold a foreign key to an Instructor
+
+    Write a Session model and repository with two foreign keys for Student and Instructor
+        insert a schema and fake data
+
+    Add security
+        'Spring Security and Angular' on Spring website
+        'Spring Security Architecture' on Spring website
+        Read this for example of login with spring and vuejs
+            https://www.linkedin.com/pulse/implementing-authentication-authorization-vuejs-using-jadson-santos/?trk=public_profile_article_view
+        three roles: 
+            manager - can add or view anything (instructors, students, sessions)
+            instructor (can add sessions and view their own students and sessions)
+            parent (can view their student and their student's sessions)
+
+Frontend
+    Watch NetNinja Vue.js 3  (video 6)
+        Watch 4 a day (finish by Friday)
+
+    Watch NetNinja Vue.js + Typescript playlist (7 videos)
+        start from video 3 - he starts using setup() and other stuff
+            watch the rest of the videos
+        use type assertion ('as' keyword) to specify types in objects
+        put global.css in assets and import it in main.ts
+        changeName(name: string): string {
+        }
+
+    Create a simple modal for updating and creating new users
+        use NetNinja Vuejs3 video 5 for hints if I get stuck
+
+    Dashboard
+        top nav
+            display current category on top left (Students, Instructors or Lessons)
+            have profile button on right (for logging in / out)
+        left nav (3 categories: Students, Instructors, Lessons)
+            need to use Vuejs router to swap between three categories
+        main top
+            search bar (to search for students, etc)
+            create (opens a modal to add student)
+            export (creates excel or csv)
+        main body
+            list students/instructors/lessons (need a way to limit number from server side)
+                id, name, edit (modal), show (modal)
+
+    Login page
+        Start with manager role.  All routes require login for now - need to configure backend
+            and also make sure frontend works nicely with it
+
+    Add a 'Add Student' button to post to api
+    Add a 'Delete Student' column
+    Add a 'Update Student' column
+
+    How should students index page look?  List of all students and
+        a button 'Add Student' to insert into database
+        Make a form to add Students to the database
+        Make a page to display all students
+        Make a page to display one student
+
+
+https://serene-springs-57533.herokuapp.com/
+
+check this out for vuejs router
+https://www.digitalocean.com/community/tutorials/how-to-navigate-between-views-with-vue-router
+
+need to find out how to use axios to do http requests to backend api
+look up a tutorial for it
+
