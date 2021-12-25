@@ -1,12 +1,49 @@
-Backend
-    save on git before doing this since we are changing a shit ton of stuff
-    Use JWT for authorization (and username + password for authentication)
-        client should post to '/auth/login'
-        if username + password match Spring database, return a JWT
-        Vuejs needs to cache the token (Vuex???) and put it in the header with each request to paths that require authorization
-        ....
+TODO:
+    Frontend
+        Make three public pages:
+            "/" root page with two buttons, Login and Register
+            "/login" login with existing account.  A successful login will redirect to dashboard
+            "/register" register new user (automatically has Instructor role)
+        Dashboard - only logged in users "/users/{id}/dashboard" (/users/{id} is simply a detail page for the user)
+            /admin/users - will let admins access users
+            /students/ - admins and instructors can access students
+            nav bar with logout on top right
+            have vuejs router swap between pages for everything below navbar
+                Account (main dashboard page)
+                Students (list all students)
+                Sessions (list all sessions with current teacher)
+                Users (for admins only.  List all registered users)
 
-        do the backend first, then get the vuejs side working later.  Should be able to do this
+    Backend
+        Consider just doing sessions - read this for argument why sessions are better for most cases (unless very big)
+            http://cryto.net/~joepie91/blog/2016/06/13/stop-using-jwt-for-sessions/
+        AmigosCode override userDetailsService() in SecurityConfig
+            and added an admin user there then return a new
+            UserDetailsService with the added user(s)
+
+            made two enums:
+                ApplicationUserPermission (eg, read:student, write:course, etc)
+                ApplicationUserRole (each role has a hashset of permissions too)
+            
+        Add email as third field for registration
+            If email is already used, should not allow that user to register
+            This is the foundation before we add email verification (watch AmigosCode video to see how to send/receive tokens to emails)
+        Add authorizations
+            ROLE_ADMIN can access api/users and api/students (shows all registered users/students and permissions)
+            ROLE_INSTRUCTOR can only access api/students
+
+Backend
+    https://www.toptal.com/spring/spring-security-tutorial (tutorial on Spring Security and JWT) - this one seems the best for now
+    https://www.digitalocean.com/community/tutorials/vuejs-vue-jwt-patterns (saving jwt and setting it in header using Vuejs without Vuex)
+    https://www.freecodecamp.org/news/how-to-setup-jwt-authorization-and-authentication-in-spring/ (JWT and Spring)
+    Reread Marco Behler(?) guides on Spring Security and Spring in Action chapter on Spring Security
+    Watch AmigosCode youtube video on Spring Boot, Spring Security and JWT (seems to implement at lower level than toptal article)
+
+    Just add a new User programmatically in main() - we don't need a registration page yet since only admin can add User
+        add "user", "password" in main() for now using RegistrationController
+
+    Add authorizations for users (eg, permissions) 
+        ADMIN, INSTRUCTOR, STUDENT
 
     Finish LessonController and test all Student/Instructor/Lesson rest endpoints
 
@@ -26,16 +63,10 @@ Backend
             parent (can view their student and their student's sessions)
 
 Frontend
-    Watch NetNinja Vue.js 3  (video 6)
-        Watch 4 a day (finish by Friday)
+    Watch NetNinja Vue.js 3
+    Watch NetNinja Vue.js 3 Typescript videos
 
-    Watch NetNinja Vue.js + Typescript playlist (7 videos)
-        start from video 3 - he starts using setup() and other stuff
-            watch the rest of the videos
-        use type assertion ('as' keyword) to specify types in objects
-        put global.css in assets and import it in main.ts
-        changeName(name: string): string {
-        }
+    Make a registration page - will need to know how to use Vuejs Router for this
 
     Create a simple modal for updating and creating new users
         use NetNinja Vuejs3 video 5 for hints if I get stuck
